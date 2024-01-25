@@ -9,6 +9,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Check if the actor is the release manager
+        run: |
+          if [[ "${{ github.actor }}" != "shantalberkhof" ]]; then
+            echo "Aborting workflow because the user is not the release manager."
+            exit 1
+          fi
       - name: Build
         run: |
           echo building and packing and app...
